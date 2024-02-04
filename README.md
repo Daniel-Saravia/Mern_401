@@ -1,7 +1,8 @@
 ## How To Run
 Create the file `mern/server/config.env` with your Atlas URI and the server port:
 ```
-ATLAS_URI=mongodb+srv://<username>:<password>@sandbox.jadwj.mongodb.net/
+ATLAS_URI=mongodb+srv://<username>:<password>@sandbox.jadwj.mongodb.net/employees?retryWrites=true&w=majority
+PORT=5000
 ```
 
 Start server:
