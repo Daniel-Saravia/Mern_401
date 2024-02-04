@@ -1,31 +1,57 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import { AuthProvider, useAuth } from "./context/AuthContext"; // Import AuthProvider and useAuth
 import Navbar from "./components/navbar";
 import RecordList from "./components/recordList";
 import Edit from "./components/edit";
 import Create from "./components/create";
-import Login from "./components/Login"; // Import the Login component
+import Login from "./components/Login"; // Make sure you have this component
+
+// A wrapper for <Route> that redirects to the login
+// screen if you're not yet authenticated.
+function PrivateRoute({ children }) {
+  const { currentUser } = useAuth();
+  return currentUser ? children : <Navigate to="/login" />;
+}
 
 const App = () => {
   return (
-    <div>
-      {/* Navbar component is rendered at the top of the application */}
-      <Navbar />
-      <div style={{ margin: 20 }}>
-        {/* Routes component contains all Route components defining the app's routes */}
-        <Routes>
-          {/* Define the root route ("/") to render the RecordList component */}
-          <Route exact path="/" element={<RecordList />} />
-          {/* Define the "/edit/:id" route to render the Edit component
-              The ":id" part is a URL parameter that will be passed to the Edit component */}
-          <Route path="/edit/:id" element={<Edit />} />
-          {/* Define the "/create" route to render the Create component */}
-          <Route path="/create" element={<Create />} />
-          {/* Define the "/login" route to render the Login component */}
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </div>
-    </div>
+    <Router>
+      <AuthProvider>
+        <div>
+          <Navbar />
+          <div style={{ margin: 20 }}>
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route
+                path="/"
+                element={
+                  <PrivateRoute>
+                    <RecordList />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/edit/:id"
+                element={
+                  <PrivateRoute>
+                    <Edit />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/create"
+                element={
+                  <PrivateRoute>
+                    <Create />
+                  </PrivateRoute>
+                }
+              />
+            </Routes>
+          </div>
+        </div>
+      </AuthProvider>
+    </Router>
   );
 };
 
