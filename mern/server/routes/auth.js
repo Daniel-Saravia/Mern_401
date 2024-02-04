@@ -1,19 +1,26 @@
 // routes/auth.js
 import express from 'express';
+import bcrypt from 'bcryptjs'; // Make sure to install bcryptjs if you haven't
+import User from '../models/User.js';
+
 const router = express.Router();
 
-// Example login route
 router.post('/login', async (req, res) => {
-  // Implement login logic here
-  res.send('Login route');
+  const { username, password } = req.body;
+  try {
+    const user = await User.findOne({ username });
+    if (user && await bcrypt.compare(password, user.password)) {
+      // Assuming you're using sessions or JWT for authentication
+      // For JWT, you would generate a token here and send it back
+      res.json({ message: "Login successful", user: { username: user.username } });
+    } else {
+      res.status(401).json({ message: "Invalid credentials" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
 });
 
-// Example registration route
-router.post('/register', async (req, res) => {
-  // Implement registration logic here
-  res.send('Register route');
-});
-
-// Export the router as the default export
 export default router;
 
