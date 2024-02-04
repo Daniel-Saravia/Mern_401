@@ -4,6 +4,7 @@ import Navbar from "./components/navbar";
 import RecordList from "./components/recordList";
 import Edit from "./components/edit";
 import Create from "./components/create";
+import Login from "./components/Login"; // Import the Login component
 
 const App = () => {
   return (
@@ -20,6 +21,8 @@ const App = () => {
           <Route path="/edit/:id" element={<Edit />} />
           {/* Define the "/create" route to render the Create component */}
           <Route path="/create" element={<Create />} />
+          {/* Define the "/login" route to render the Login component */}
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </div>
@@ -27,5 +30,3 @@ const App = () => {
 };
 
 export default App;
-
-
