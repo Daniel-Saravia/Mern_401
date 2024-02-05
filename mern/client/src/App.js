@@ -7,6 +7,10 @@ import Edit from "./components/edit";
 import Create from "./components/create";
 import Login from "./components/Login";
 
+// uses the AuthProvider from AuthContext.js to wrap the application, ensuring that authentication 
+// state is accessible throughout the component tree. It also defines routes, including a private 
+// route that redirects unauthenticated users to the login page.
+
 // Custom PrivateRoute component to protect routes that require authentication
 function PrivateRoute({ children }) {
   const { currentUser } = useAuth();
