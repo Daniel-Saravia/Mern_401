@@ -2,6 +2,10 @@
 import React, { createContext, useContext, useState } from 'react';
 import axios from 'axios'; 
 
+// defines a React context for authentication, including a login function that performs the 
+// actual login request using axios. It updates the context with the user's information 
+// upon successful login.
+
 // Create a new context for authentication
 const AuthContext = createContext();
 

@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import axios from 'axios'; // Make sure to have axios installed
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-//provides a form for users to enter their username and password. 
+// provides a form for users to enter their username and password. 
 // On form submission, it sends these credentials to the server's login endpoint.
-// Define the Login component.
+
 function Login() {
   // Define state variables for username and password input fields.
   const [username, setUsername] = useState('');
