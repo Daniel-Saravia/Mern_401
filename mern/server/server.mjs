@@ -1,28 +1,29 @@
-// Importing express module for creating the server and handling routes
-import express from "express";
-// Importing cors module to enable Cross-Origin Resource Sharing
-import cors from "cors";
-// Importing environment variables setup from a custom module
-import "./loadEnvironment.mjs";
-// Importing routes for 'records' from a separate module
-import records from "./routes/record.mjs";
+// Import necessary libraries and modules.
+import express from 'express';
+import cors from 'cors';
 
-// Setting the port number on which the server will listen
+// Import custom modules and middleware.
+import './loadEnvironment.mjs'; // Loading environment variables
+import records from './routes/record.mjs'; // Importing routes for records
+import authRoutes from './routes/auth.js'; // Importing routes for authentication
+
+// Define the port on which the server will listen.
 const PORT = 5050;
-// Creating an instance of express to set up the server
+
+// Create an Express application instance.
 const app = express();
 
-// Applying CORS middleware to allow cross-origin requests
+// Enable Cross-Origin Resource Sharing (CORS) for your server.
 app.use(cors());
-// Applying middleware to parse JSON bodies in requests
+
+// Parse JSON request bodies.
 app.use(express.json());
 
-// Setting up a route for '/record' that uses the imported 'records' router
-app.use("/record", records);
+// Use the routes defined in your application.
+app.use('/record', records); // Use the records routes under '/record'
+app.use('/api/auth', authRoutes); // Use the authentication routes under '/api/auth'
 
-// Starting the Express server on the specified PORT
+// Start the server and listen on the specified port.
 app.listen(PORT, () => {
-  // Logging to the console once the server is listening on the specified port
   console.log(`Server listening on port ${PORT}`);
 });
-
